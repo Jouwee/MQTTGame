@@ -12,6 +12,7 @@
   "dependencies": {
     "http": "0.0.0",
     "mqtt": "^2.18.8",
-    "websocket": "^1.0.28"
+    "websocket": "^1.0.28",
+    "phaser-ce": "^2.11.1"
   }
 }
