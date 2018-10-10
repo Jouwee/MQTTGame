@@ -4,6 +4,20 @@ const right = 4095;
 
 var x = middle;
 
+var connection = new WebSocket('ws://localhost:1337', ['soap', 'xmpp']);
+
+connection.onopen = function () {
+    connection.send('Ping');
+};
+
+connection.onerror = function (error) {
+    console.log('WebSocket Error ' + error);
+};
+
+connection.onmessage = function (e) {
+    console.log('Server: ' + e.data)
+    x =  parseInt(e.data);
+};
 
 var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update });
 
@@ -85,7 +99,7 @@ function create() {
 
 
 function update () {
-    x = middle;
+   // x = middle;
 
     if (game.input.keyboard.isDown(Phaser.Keyboard.A)) {
         x = left;
@@ -109,6 +123,8 @@ function update () {
     if (x > 4000) {
         dir = 2;
     }
+
+    if (dir != 0) releaseBall()
 
     paddle.x += dir * 5;
 
