@@ -5,14 +5,16 @@
   "main": "index.js",
   "scripts": {
     "server": "node server/server.js",
+    "start": "live-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "http": "0.0.0",
+    "live-server": "^1.2.0",
     "mqtt": "^2.18.8",
-    "websocket": "^1.0.28",
-    "phaser-ce": "^2.11.1"
+    "phaser-ce": "^2.11.1",
+    "websocket": "^1.0.28"
   }
 }
