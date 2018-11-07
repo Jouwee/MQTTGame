@@ -1,9 +1,6 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 
-int ledPin = 13;      // select the pin for the LED
-int sensorValue = 0;  // variable to store the value coming from the sensor
-
 int P0 = 33;
 int P1 = 32;
 int P2 = 35;
@@ -18,22 +15,6 @@ const char* mqtt_server = "172.18.0.1";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
-
-void callback(char* topic, byte* payload, unsigned int length) {
- Serial.print("Message arrived [");
- Serial.print(topic);
- Serial.print("] ");
- for (int i=0;i<length;i++) {
-  char receivedChar = (char)payload[i];
-  Serial.print(receivedChar);
-  if (receivedChar == '0')
-  // ESP8266 Huzzah outputs are "reversed"
-  digitalWrite(ledPin, HIGH);
-  if (receivedChar == '1')
-   digitalWrite(ledPin, LOW);
-  }
-  Serial.println();
-}
 
 void setup() {
   Serial.begin(115200);
@@ -51,7 +32,6 @@ void setup() {
     client.connect("ESP32Client");
     delay(300);
   }
-  // client.setCallback(callback);
 }
 
 void loop() {
@@ -60,14 +40,7 @@ void loop() {
   y = analogRead(P1);
   sw = analogRead(P2);
 
-  Serial.print("x ");
-  Serial.println(x);
-  Serial.print("y ");
-  Serial.println(y);
-  Serial.print("sw ");
-  Serial.println(sw);
-
-  client.publish("/teste", "oi jonata");
+  client.publish("/teste", x);
   
   delay(500);
 }
